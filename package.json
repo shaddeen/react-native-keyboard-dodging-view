@@ -1,0 +1,25 @@
+{
+  "name": "react-native-keyboard-dodging-view",
+  "version": "1.0.0",
+  "description": "A view that shifts up when the keyboard is presented",
+  "main": "KeyboardDodgingView.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shaddeen/react-native-keyboard-dodging-view.git"
+  },
+  "keywords": [
+    "react-native",
+    "keyboard",
+    "view",
+    "component"
+  ],
+  "author": "Shad Deen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ide/react-native-keyboard-dodging-view/issues"
+  },
+  "homepage": "https://github.com/shaddeen/react-native-keyboard-dodging-view"
+}
