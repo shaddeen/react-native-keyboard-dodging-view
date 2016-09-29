@@ -2,7 +2,7 @@
 
 A react-native component for iOS that shifts the view up when the keyboard is presented. There are a few examples of this available including [KeyboardAvoidingView](https://facebook.github.io/react-native/releases/next/docs/keyboardavoidingview.html) but I've run into issues with this, particularly when using multiple fields. This solution aims to tackle this problem.
 
-![demo](https://github.com/shaddeen/react-native-keyboard-dodging-view/master/img/demo.gif)
+![demo](https://github.com/shaddeen/react-native-keyboard-dodging-view/blob/master/img/demo.gif)
 
 ##Setup
 
@@ -13,7 +13,6 @@ A react-native component for iOS that shifts the view up when the keyboard is pr
 | Prop  | Type  |  |
 |---|---|---|
 | `verticalOffset`  | `number`  | (Optional) Additional vertical offset  |
-|---|---|---|
 
 ##Usage
 
@@ -44,4 +43,4 @@ class Example extends Component {
 
 ##Outstanding issues
  - Slight jump when switching text fields via the keyboard return key on iOS 8
- - Measurements are off when content is vertically aligned by a container view (with `justifyContent: 'center`)
+ - Measurements are off when content is vertically aligned by a container view (with `justifyContent: 'center'`)
