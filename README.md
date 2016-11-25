@@ -18,7 +18,7 @@ A react-native component for iOS that shifts the view up when the keyboard is pr
 
 Import:
 ```
-import KeyboardDodgingView from 'KeyboardDodgingView`
+import KeyboardDodgingView from 'react-native-keyboard-dodging-view'
 ```
 Example:
 ```
