@@ -58,6 +58,10 @@ class KeyboardDodgingView extends React.Component {
     this.onKeyboardChange(event);
   }
 
+  dodgeKeyboard () {
+
+  }
+
   onKeyboardChange (event) {
     let top = 0;
 
@@ -70,69 +74,24 @@ class KeyboardDodgingView extends React.Component {
     const viewHeight = this._frame.height;
     const viewTopOffset = this._frame.y;
 
-    /// Testing
     const { State: TextInputState } = TextInput;
     const currentlyFocusedField = TextInputState.currentlyFocusedField();
 
-    // if (currentlyFocusedField) {
-    //   UIManager.measure(currentlyFocusedField, (originX, originY, width, height, pageX, pageY) => {
-    //     console.log(originX, originY, width, height, pageX, pageY);
-    //     if (pageY < 0) {
-    //       console.log("Field was hidden!")
-    //       this.setState({top});
-    //       this._keyboardVisible = false;
-    //       this._keyboardHeight = 0;
-    //       return;
-    //     }
-    //   });
-    // }
     if (currentlyFocusedField) {
       UIManager.measure(currentlyFocusedField, (originX, originY, width, height, pageX, pageY) => {
-        console.log(originX, originY, width, height, pageX, pageY);
-
-        console.log("keyboardHeight:" + this._keyboardHeight)
-        if (pageY < 250) { //this._keyboardHeight) {
+        console.log (endCoordinates.height);
+        if (pageY < endCoordinates.height) {
           this.setState({top});
           this._keyboardVisible = false;
           this._keyboardHeight = 0;
           return;
         }
 
-        if (this._keyboardHeight === endCoordinates.height) {
-          return;
-        }
-
-        if (this._keyboardHeight !== endCoordinates.height || startCoordinates.screenY > endCoordinates.screenY) {
-          if (endCoordinates.screenY - viewHeight < viewTopOffset) {
-            top = endCoordinates.screenY - viewTopOffset - viewHeight - this.props.verticalOffset;
-          }
-        }
-
-        this.animateLayout(duration, easing);
-        this.setState({top});
-        if (this._keyboardVisible) {
-          this._keyboardHeight = endCoordinates.height;
-        }
+        dodgeKeyboard();
       });
     }
     else {
-      // TODO: put this in a method!!  
-      console.log("Measure not")
-        if (this._keyboardHeight === endCoordinates.height) {
-          return;
-        }
-
-        if (this._keyboardHeight !== endCoordinates.height || startCoordinates.screenY > endCoordinates.screenY) {
-          if (endCoordinates.screenY - viewHeight < viewTopOffset) {
-            top = endCoordinates.screenY - viewTopOffset - viewHeight - this.props.verticalOffset;
-          }
-        }
-
-        this.animateLayout(duration, easing);
-        this.setState({top});
-        if (this._keyboardVisible) {
-          this._keyboardHeight = endCoordinates.height;
-        }
+      dodgeKeyboard();
     }
         /// 
 
