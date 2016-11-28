@@ -94,7 +94,7 @@ class KeyboardDodgingView extends React.Component {
 
     const { State: TextInputState } = TextInput;
     const currentlyFocusedField = TextInputState.currentlyFocusedField();
-:
+
     if (currentlyFocusedField) {
       UIManager.measure(currentlyFocusedField, (originX, originY, width, height, pageX, pageY) => {
 
