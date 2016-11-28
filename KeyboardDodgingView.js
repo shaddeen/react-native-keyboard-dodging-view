@@ -59,7 +59,21 @@ class KeyboardDodgingView extends React.Component {
   }
 
   dodgeKeyboard () {
+    if (this._keyboardHeight === endCoordinates.height) {
+      return;
+    }
 
+    if (this._keyboardHeight !== endCoordinates.height || startCoordinates.screenY > endCoordinates.screenY) {
+      if (endCoordinates.screenY - viewHeight < viewTopOffset) {
+        top = endCoordinates.screenY - viewTopOffset - viewHeight - this.props.verticalOffset;
+      }
+    }
+
+    this.animateLayout(duration, easing);
+    this.setState({top});
+    if (this._keyboardVisible) {
+      this._keyboardHeight = endCoordinates.height;
+    }
   }
 
   onKeyboardChange (event) {
@@ -76,7 +90,7 @@ class KeyboardDodgingView extends React.Component {
 
     const { State: TextInputState } = TextInput;
     const currentlyFocusedField = TextInputState.currentlyFocusedField();
-
+:
     if (currentlyFocusedField) {
       UIManager.measure(currentlyFocusedField, (originX, originY, width, height, pageX, pageY) => {
         console.log (endCoordinates.height);
@@ -87,11 +101,11 @@ class KeyboardDodgingView extends React.Component {
           return;
         }
 
-        dodgeKeyboard();
+        this.dodgeKeyboard();
       });
     }
     else {
-      dodgeKeyboard();
+      this.dodgeKeyboard();
     }
         /// 
 
