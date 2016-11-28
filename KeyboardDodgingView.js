@@ -58,7 +58,13 @@ class KeyboardDodgingView extends React.Component {
     this.onKeyboardChange(event);
   }
 
-  dodgeKeyboard () {
+  dodgeKeyboard (event) {
+    let top = 0;
+
+    const {duration, easing, startCoordinates, endCoordinates} = event;
+    const viewHeight = this._frame.height;
+    const viewTopOffset = this._frame.y;
+
     if (this._keyboardHeight === endCoordinates.height) {
       return;
     }
@@ -77,10 +83,8 @@ class KeyboardDodgingView extends React.Component {
   }
 
   onKeyboardChange (event) {
-    let top = 0;
-
     if (!event || !this._frame) {
-      this.setState({top});
+      this.setState({top: 0});
       return;
     }
 
@@ -93,21 +97,20 @@ class KeyboardDodgingView extends React.Component {
 :
     if (currentlyFocusedField) {
       UIManager.measure(currentlyFocusedField, (originX, originY, width, height, pageX, pageY) => {
-        console.log (endCoordinates.height);
+
         if (pageY < endCoordinates.height) {
-          this.setState({top});
+          this.setState({top: 0});
           this._keyboardVisible = false;
           this._keyboardHeight = 0;
           return;
         }
 
-        this.dodgeKeyboard();
+        this.dodgeKeyboard(event);
       });
     }
     else {
-      this.dodgeKeyboard();
+      this.dodgeKeyboard(event);
     }
-        /// 
 
   }
 
