@@ -9,7 +9,9 @@ import React from 'react';
 import {
   View,
   Keyboard,
+  TextInput,
   LayoutAnimation,
+  UIManager,
   Platform
 } from 'react-native';
 
@@ -56,13 +58,8 @@ class KeyboardDodgingView extends React.Component {
     this.onKeyboardChange(event);
   }
 
-  onKeyboardChange (event) {
+  dodgeKeyboard (event) {
     let top = 0;
-
-    if (!event || !this._frame) {
-      this.setState({top});
-      return;
-    }
 
     const {duration, easing, startCoordinates, endCoordinates} = event;
     const viewHeight = this._frame.height;
@@ -85,6 +82,39 @@ class KeyboardDodgingView extends React.Component {
     }
   }
 
+  onKeyboardChange (event) {
+    if (!event || !this._frame) {
+      this.setState({top: 0});
+      return;
+    }
+
+    const {duration, easing, startCoordinates, endCoordinates} = event;
+    const viewHeight = this._frame.height;
+    const viewTopOffset = this._frame.y;
+
+    const { State: TextInputState } = TextInput;
+    const currentlyFocusedField = TextInputState.currentlyFocusedField();
+
+    if (currentlyFocusedField) {
+      UIManager.measure(currentlyFocusedField, (originX, originY, width, height, pageX, pageY) => {
+
+        if (pageY < endCoordinates.height) {
+          this.setState({top: 0});
+          this._keyboardVisible = false;
+          this._keyboardHeight = 0;
+          return;
+        }
+
+        this.dodgeKeyboard(event);
+      });
+    }
+    else {
+      this.dodgeKeyboard(event);
+    }
+
+  }
+
+
   animateLayout (duration = 250, easing = 'keyboard') {
     LayoutAnimation.configureNext({
       duration: duration,
@@ -93,7 +123,7 @@ class KeyboardDodgingView extends React.Component {
         type: LayoutAnimation.Types[easing]
       }
     });
-  }
+  }  
 
   onLayout (event) {
     if (event && event.nativeEvent.layout !== this._frame) {
